@@ -1,0 +1,46 @@
+<%@ page language="java" import="java.util.*" pageEncoding="gb2312"%>
+<%@page import="dao.CustomerDao"%>
+<%@page import="vo.Customer"%>
+<html><style type="text/css">
+<!--
+body,td,th {
+	font-family: 宋体;
+	font-size: 36px;
+	font-weight: bold;
+	color: #0000FF;
+}
+body {
+	background-image: url(img4/8.jpg);
+}
+-->
+</style> 
+<body>
+  <p>
+      <%
+    	request.setCharacterEncoding("gb2312");
+    	String account = request.getParameter("account");
+    	String password = request.getParameter("password");
+    	
+    	CustomerDao cdao = new CustomerDao();
+    	Customer customer = cdao.getCustomerByAccount(account);
+		if(customer==null || !customer.getPassword().equals(password)){
+	%>
+  </p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>登录失败,可能是账号密码不匹配哦！</p>
+  <p><a href="loginForm.jsp">返回登录页面</a>
+    <%			
+		}
+		else{
+			session.setAttribute("customer",customer);
+			ArrayList customers =(ArrayList)application.getAttribute("customers");
+			ArrayList msgs =(ArrayList)application.getAttribute("msgs");
+			customers.add(customer);
+			msgs.add(customer.getCname() + "上线啦!");    		
+    		response.sendRedirect("chatForm.jsp");
+		}       	
+    %> 
+    </p>
+</body>
+</html>

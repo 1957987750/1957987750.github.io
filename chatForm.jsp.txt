@@ -1,0 +1,35 @@
+<%@ page language="java" pageEncoding="gb2312"%>
+<%@page import="vo.Customer"%>
+<html><style type="text/css">
+<!--
+body {
+	background-color: #FFFFFF;
+	background-image: url(img2/7.jpg);
+	background-repeat: repeat;
+}
+body,td,th {
+	font-family: 宋体;
+	font-size: 36px;
+	font-weight: bold;
+}
+-->
+</style> 
+<body>
+  	<p>
+  	  <%
+  		Customer customer = (Customer)session.getAttribute("customer");
+  	%>
+    </p>
+  	<p><marquee direction="right">##伟大的中国人民万岁##</marquee></p>
+  	<p>&nbsp;</p>
+  	<p>欢迎<%=customer.getCname() %>聊天<BR>
+    </p>
+  	<form action="chatAction.jsp" name="form1" method="post">
+    	输入聊天信息：<input name="msg" type="text" size="40">
+    	<input type="submit" value="发送" >
+    </form>  
+    <a href="logoutAction.jsp">退出登录</a>
+    <HR>   
+    <iframe src="msgs.jsp" width="100%" height="80%" frameborder="0"></iframe>     
+</body>  
+</html>
